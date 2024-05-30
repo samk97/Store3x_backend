@@ -14,8 +14,17 @@ namespace Store3x.Services.ProductAPI.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Seller> Sellers { get; set;}
         public DbSet<Category> Categories { get; set;}
-        public DbSet<Wishlist> Wishlists { get; set; } 
-       
+        public DbSet<Wishlist> Wishlists { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cart>()
+                .HasKey(c => new { c.buyer_id, c.product_id });
+            
+            modelBuilder.Entity<Wishlist>()
+                .HasKey(c => new { c.buyer_id, c.product_id });
+        }
+
     }
 
 }

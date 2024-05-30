@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductAPI.Data;
+using ProductAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Store3x.Services.ProductAPI.Data;
-using Store3x.Services.ProductAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Store3x.Services.ProductAPI.Controllers
+namespace ProductAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class CartController : Controller
     {
         private readonly AppDbContext _context;
 
@@ -96,10 +92,5 @@ namespace Store3x.Services.ProductAPI.Controllers
                 return StatusCode(500); // Internal Server Error
             }
         }
-
-
-
-
-
     }
 }

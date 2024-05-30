@@ -71,15 +71,18 @@ namespace Store3x.Services.ProductAPI.Controllers
             {
                 Console.WriteLine($"Deleting wishlist item for buyerId: {buyerId}, productId: {productId}");
 
-                string sqlQuery = "DELETE FROM [product_wishlist] WHERE [buyer_id] = '{0}' AND [product_id] = {1}";
-                string formattedSqlQuery = string.Format(sqlQuery, buyerId, productId);
+                var wishlistItem = await _context.Wishlists
+                                                 .FirstOrDefaultAsync(w => w.buyer_id == buyerId && w.product_id == productId);
 
-                int rowsAffected = await _context.Database.ExecuteSqlRawAsync(formattedSqlQuery);
 
-                if (rowsAffected == 0)
+
+                if (wishlistItem == null)
                 {
                     return NotFound();
                 }
+
+                _context.Wishlists.Remove(wishlistItem);
+                await _context.SaveChangesAsync();
 
                 return NoContent();
             }
@@ -89,6 +92,7 @@ namespace Store3x.Services.ProductAPI.Controllers
                 return StatusCode(500); // Internal Server Error
             }
         }
+
 
 
     }

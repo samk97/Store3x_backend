@@ -6,9 +6,9 @@ namespace Store3x.Services.ProductAPI.Models
     [Table("product_wishlist")]
     public class Wishlist
     {
-        [Key]
-        public string buyer_id { get; set; }
-        [Required]
+        [Key, Column(Order = 0)]
+        public string? buyer_id { get; set; }
+        [Key, Column(Order = 1)]
         public int product_id { get; set; }
     }
 }
